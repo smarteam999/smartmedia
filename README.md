@@ -5,6 +5,7 @@ SuperSTRM 是一个网盘影视资源 STRM 扩展工具。
 - 本项目非开源，当前仓库只作为**信息发布窗口**，主要用于发布使用文档、版本更新信息以及 Feature 规划。 
 - 无收费计划，除非写了什么超级牛逼的功能。
 - Bug直接提Issue
+- TG讨论组： [SuperSTRM](https://t.me/superstrm)
 
 ## 📚 文档
 
@@ -41,13 +42,17 @@ docker run -d \
 
 更多配置选项（环境变量、Compose 部署、数据库迁移等）请查阅 [部署指南](docs/deployment.md)。
 
-## 🗺️ Feature 规划
+## 🔧 正在开发 (In Development)
 
-- [X] 数据源Openlist接入
-- [X] 数据源123API接入
-- [X] 支持数据源浏览
-- [X] 批量生成 STRM 文件
-- [X] 定时任务自动生成 STRM 文件
+> 当前版本正在开发中的特性：
+
+- [x] Openlist 数据源接入
+- [x] 123API 数据源接入
+- [x] 支持数据源内容浏览
+- [x] 定时自动生成/更新 STRM 文件
+- [x] 可视化配置管理界面
+
+查看完整功能列表请访问 **[功能特性 (Features)](docs/features.md)**。
 
 ## 📢 最近发布信息
 
