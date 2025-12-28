@@ -3,7 +3,7 @@
 SuperSTRM 是一个网盘影视资源 STRM 扩展工具。
 
 - 本项目非开源，当前仓库只作为**信息发布窗口**，主要用于发布使用文档、版本更新信息以及 Feature 规划。 
-- 无收费计划，除非写了什么超级牛逼的功能。
+- 一站式完成家庭影库的搭建
 - Bug直接提Issue
 - TG讨论组： [SuperSTRM](https://t.me/superstrm)
 
