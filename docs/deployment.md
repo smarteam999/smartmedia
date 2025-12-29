@@ -6,14 +6,13 @@
 
 ```bash
 # 创建必要的目录
-mkdir -p superstrm/config superstrm/data superstrm/logs
+mkdir -p superstrm/data superstrm/logs
 
 # 启动容器
 docker run -d \
   --name superstrm \
   --restart unless-stopped \
   -p 8080:8080 \
-  -v $(pwd)/superstrm/config:/config \
   -v $(pwd)/superstrm/data:/data \
   -v $(pwd)/superstrm/logs:/logs \
   -e LOG_LEVEL=info \
@@ -21,7 +20,8 @@ docker run -d \
   -e PUID=1000 \
   -e PGID=1000 \
   -e UMASK=022 \
-  smarteam/superstrm:latest
+  smarteam/superstrm:latest \
+  /superstrm-web serve --migrate
 ```
 
 ## 2. 使用 Docker Compose 部署 (推荐)
@@ -39,7 +39,6 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./config:/config
       - ./data:/data
       - ./logs:/logs
     environment:
@@ -49,9 +48,10 @@ services:
       - PGID=1000
       - UMASK=022
       # 如果需要连接 Redis，取消注释以下行
+      # - CACHE_TYPE=redis
       # - REDIS_ADDR=redis:6379
     # 默认命令启动 web 服务，如果需要自动迁移，请参考下一节
-    # command: ["/superstrm-web", "serve", "--migrate"]
+    command: ["/superstrm-web", "serve", "--migrate"]
 
   # (可选) Redis 服务
   # redis:
@@ -101,12 +101,8 @@ docker-compose run --rm superstrm /superstrm-web migrate
 
 | 容器内路径 | 说明 |
 | :--- | :--- |
-| `/config` | 配置文件存放目录 (config.yaml) |
 | `/data` | 持久化数据存储 (数据库文件等) |
 | `/logs` | 运行日志 |
-
-建议将配置文件挂载到宿主机以便持久化保存和修改。
-参考配置文件示例: [config.yaml.example](https://github.com/smarteam999/smart-media/blob/main/superstrm/example/config.yaml.example)
 
 ## 5. 参数与环境变量详解
 
@@ -121,11 +117,34 @@ docker-compose run --rm superstrm /superstrm-web migrate
 
 ### 应用特定环境变量
 
-| 变量名 | 默认值 | 对应配置项 | 说明 |
-| :--- | :--- | :--- | :--- |
-| `LOG_LEVEL` | `info` | `Logging.Level` | 日志级别 (debug, info, warn, error) |
-| `WEB_PORT` | `8080` | `Server.Port` | Web 服务监听端口 |
-| `DB_DSN` | `./data/superstrm.db` | `Database.DSN` | 数据库连接字符串或文件路径 |
-| `REDIS_ADDR` | - | `Cache.Redis.Addr` | Redis 服务器地址 (host:port) |
-| `REDIS_PASSWORD`| - | `Cache.Redis.Password`| Redis 密码 |
-| `JWT_SECRET` | - | `Security.JWTSecret` | JWT 签名密钥 (建议生产环境修改) |
+以下是主要配置的环境变量映射。完整配置结构请参考代码。
+
+| 变量名 | 默认值 | 说明 |
+| :--- | :--- | :--- |
+| **基础设置** | | |
+| `DEBUG` | `false` | 是否开启调试模式 |
+| `TZ` | `Asia/Shanghai` | 时区设置 |
+| **服务器** | | |
+| `SERVER_HOST` | `0.0.0.0` | 监听地址 |
+| `SERVER_PORT` | `8080` | 监听端口 |
+| **数据库** | | |
+| `DATABASE_TYPE` | `sqlite` | 数据库类型 (sqlite, postgres, mysql) |
+| `DATABASE_DSN` | `./data/superstrm.db` | 数据库连接字符串 |
+| **存储** | | |
+| `STORAGE_DATA_DIR` | `./data` | 数据目录 |
+| `STORAGE_LOGS_DIR` | `./logs` | 日志目录 |
+| `STORAGE_TEMP_DIR` | `./temp` | 临时目录 |
+| **日志** | | |
+| `LOG_LEVEL` | `info` | 日志级别 (debug, info, warn, error) |
+| `LOG_FORMAT` | `json` | 日志格式 |
+| **安全** | | |
+| `SECURITY_SESSION_TIMEOUT` | `3600` | 会话超时 (秒) |
+| `SECURITY_RATE_LIMIT_ENABLED`| `true` | 是否开启限流 |
+| **缓存** | | |
+| `CACHE_TYPE` | `local` | 缓存类型 (local, redis) |
+| `REDIS_ADDR` | - | Redis 地址 |
+| `REDIS_PASSWORD` | - | Redis 密码 |
+| `REDIS_DB` | `0` | Redis DB 索引 |
+| **GitHub** | | |
+| `GITHUB_PROXY` | - | GitHub API 代理地址 (例如 `https://mirror.ghproxy.com/`) |
+| `GITHUB_TOKEN` | - | GitHub 访问令牌 (用于提高 API 速率限制) |

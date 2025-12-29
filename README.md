@@ -1,13 +1,14 @@
 # SuperSTRM
 
-SuperSTRM 是一个网盘影视资源 STRM 扩展工具。
+SuperSTRM 是一个网盘影视资源扩展工具。
 
+- 一站式完成家庭影库的搭建,额外依赖NAS(如群晖、QNAP等)、Emby、应用播放器
 - 本项目非开源，当前仓库只作为**信息发布窗口**，主要用于发布使用文档、版本更新信息以及 Feature 规划。 
-- 一站式完成家庭影库的搭建
+- 无收费计划、无开源计划，小伙伴们一心为家人提供情绪价值😂
 - Bug直接提Issue
 - TG讨论组： [SuperSTRM](https://t.me/superstrm)
 
-## 📚 文档
+## 📚 文档(不及时)
 
 - **[Docker 部署指南](docs/deployment.md)**：详细的 Docker 及 Docker Compose 部署说明。
 - **[更新日志](docs/changelog.md)**：查看版本更新历史及发布计划。
@@ -33,7 +34,6 @@ docker run -d \
   --name superstrm \
   --restart unless-stopped \
   -p 8080:8080 \
-  -v $(pwd)/superstrm/config:/config \
   -v $(pwd)/superstrm/data:/data \
   -v $(pwd)/superstrm/logs:/logs \
   -e LOG_LEVEL=info \
