@@ -146,5 +146,5 @@ docker-compose run --rm superstrm /superstrm-web migrate
 | `REDIS_PASSWORD` | - | Redis 密码 |
 | `REDIS_DB` | `0` | Redis DB 索引 |
 | **GitHub** | | |
-| `GITHUB_PROXY` | - | GitHub API 代理地址 (例如 `https://mirror.ghproxy.com/`) |
+| `GITHUB_PROXY` | - | GitHub API 代理地址 (例如 `https://mirror.ghproxy.com/`,国内环境建议配置) |
 | `GITHUB_TOKEN` | - | GitHub 访问令牌 (用于提高 API 速率限制) |
