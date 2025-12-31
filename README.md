@@ -20,7 +20,7 @@ SmartMedia 目前包含以下两个核心应用：
 媒体服务器流量优化与直链播放工具。
 - **功能**：实现 Strm 文件的 302 直链播放，流量不经过媒体服务器 (Emby/Jellyfin)。
 - **特点**：
-    - 推荐配合 [AutoFilm](https://github.com/Akimio521/AutoFilm) 使用。
+    - 推荐配合SmartSTRM使用。
     - 支持 HTTPStrm (直接 HTTP 链接) 及 AlistStrm (Alist 路径)。
     - 支持屏蔽特定客户端访问。
 - **文档**：
