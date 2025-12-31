@@ -40,7 +40,7 @@ SmartMedia 的各个组件共享相同的版本发布策略，但可能独立发
 
 > **注意**: 生产环境建议固定使用具体的版本号 Tag (如 `v1.0.0`) 以避免非预期的自动升级。
 
-## � 发布信息
+## 📢 发布信息
 
 SmartMedia 采用按需发布模式，发布版本可能仅包含其中一个或全部应用的更新。
 
@@ -49,4 +49,4 @@ SmartMedia 采用按需发布模式，发布版本可能仅包含其中一个或
 ## 🤝 交流与反馈
 
 - Bug 反馈：直接提交 Issue
-- 讨论组：[SmartMedia TG Group](https://t.me/superstrm)
+- 讨论组：[SmartMedia TG Group](https://t.me/piggymedia)
