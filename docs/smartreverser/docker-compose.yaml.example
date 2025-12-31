@@ -1,0 +1,21 @@
+version: '2.4'  # 指定 Docker Compose 文件的版本，确保兼容性
+
+services:
+  smart-reverser:
+      image: smarteam/smartreverser:latest
+      container_name: smart-reverser
+      networks:
+        - alistbridge
+      ports:
+        - 9000:9000
+      environment:
+        - REVERSER_DEBUG=1
+      volumes:
+        - ./config:/config
+        - ./media:/media
+        - ./logs:/logs
+      restart: unless-stopped
+
+networks:
+  alistbridge:
+    external: true

@@ -1,0 +1,43 @@
+Port: 9000                                  # MideWarp 监听端口
+
+MediaServer:                                # 媒体服务器相关设置
+  Type: Emby                                # 媒体服务器类型（可选选项：Emby、Jellyfin）
+  ADDR: http://100.124.4.57:8021               # 媒体服务器地址
+  AUTH: 9c09ac2e3f1c444bbfec520524cbadd2                    # 媒体服务器认证方式
+
+Logger:                                     # 日志设定
+  AccessLogger:                             # 访问日志设定
+    Console: True                           # 是否将访问日志文件输出到终端中
+    File: False                             # 是否将访问日志文件记录到文件中
+  ServiceLogger:                            # 服务日志设定
+    Console: True                           # 是否将服务日志文件输出到终端中
+    File: False                              # 是否将服务日志文件记录到文件中
+
+ClientFilter:                               # 客户端过滤器
+  Enable: False                             # 是否启用客户端过滤器
+  Mode: BlackList # WhileList / BlackList   # 黑白名单模式
+  ClientList:                               # 名单列表
+    - Fileball
+    - Infuse
+
+HTTPStrm:                                   # HTTPStrm 相关配置（Strm 文件内容是 标准 HTTP URL）
+  Enable: False                              # 是否开启 HttpStrm 重定向
+  TransCode: False                          # False：强制关闭转码 True：保持原有转码设置
+  FinalURL: True                            # 对 URL 进行重定向判断，找到非重定向地址再重定向给客户端，减少客户端重定向次数（适用于 Strm 内容是局域网地址但是想要在公网之中播放）
+  PrefixList:                               # EmbyServer 中 Strm 文件的前缀（符合该前缀的 Strm 文件且被正确识别为 HTTP 协议都会路由到该规则下）
+    - /data/symlink
+  ReplaceMap:                               # 字符串替换映射：对 STRM 中的 URL 进行替换
+    "http://nas.local:5244": "http://nas.public:5244"
+
+AlistStrm:                                  # AlistStrm 相关配置（Strm 文件内容是 Alist 上文件的路径，目前仅支持适配 Alist V3）
+  Enable: True                              # 是否启用 AlistStrm 重定向
+  TransCode: False                           # False：强制关闭转码 True：保持原有转码设置
+  RawURL: False                             # Fasle：响应 Alist 服务器的直链（要求客户端可以访问到 Alist） True：直接响应 Alist 上游的真实链接（alist api 中的 raw_url 属性）
+  List:                                     # Alist 服务关配置列表
+    - ADDR: http://nas.local:5244       # Alist 服务器地址
+      Username: admin                       # Alist 服务器账号
+      Password: y88924716                  # Alist 服务器密码
+      PrefixList:                           # EmbyServer 中 Strm 文件的前缀（符合该前缀的 Strm 文件都会路由到该规则下）
+        - /data/symlink               # 同一个 Alist 可以有多个前缀规则
+  ReplaceMap:                               # 字符串替换映射：对 STRM 中的 URL 进行替换
+    "http://nas.local:5244/d": ""

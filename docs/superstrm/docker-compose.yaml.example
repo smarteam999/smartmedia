@@ -1,0 +1,25 @@
+services:
+  superstrm:
+    image: smarteam/superstrm:latest
+    container_name: superstrm
+    restart: unless-stopped
+    volumes:
+      - ./data:/data #数据目录
+      - ./logs:/logs # 挂载日志目录，可选
+      - /share/CACHEDEV1_DATA/datas/strm-media:/strm # 挂载 STRM 生成目录
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Asia/Shanghai
+      - PUID=1000
+      - PGID=1000
+      - UMASK=022
+      - SERVER_PORT=8080 # 管理端口，可选
+    ports:
+      - "8166:8080"
+    networks:
+      - alistbridge  # 连接到定义的网络
+    command: ["/superstrm-web", "serve", "--migrate"]
+
+networks:
+  alistbridge:
+    external: true

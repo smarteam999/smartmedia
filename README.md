@@ -1,21 +1,35 @@
-# SuperSTRM
+# SmartMedia
 
-SuperSTRM 是一个网盘影视资源扩展工具。
+SmartMedia 是一个媒体工具套件，包含多个专注于提升家庭影音体验的应用组件。
 
-- 一站式完成家庭影库的搭建,额外依赖NAS(如群晖、QNAP等)、Emby、应用播放器
-- 本项目非开源，当前仓库只作为**信息发布窗口**，主要用于发布使用文档、版本更新信息以及 Feature 规划。 
-- 无收费计划、无开源计划，小伙伴们一心为家人提供情绪价值😂
-- Bug直接提Issue
-- TG讨论组： [SuperSTRM](https://t.me/superstrm)
+> 本项目非开源，当前仓库作为 SmartMedia 套件的**官方发布窗口**，主要用于发布使用文档、版本更新信息以及 Feature 规划。
+> 无收费计划，仅为个人兴趣与家庭使用开发。
 
-## 📚 文档(不及时)
+## 🧩 组件应用
 
-- **[Docker 部署指南](docs/deployment.md)**：详细的 Docker 及 Docker Compose 部署说明。
-- **[更新日志](docs/changelog.md)**：查看版本更新历史及发布计划。
+SmartMedia 目前包含以下两个核心应用：
+
+### 1. [SmartSTRM](docs/superstrm/features.md)
+网盘影视资源 STRM 扩展工具。
+- **功能**：一站式完成家庭影库的搭建，支持多数据源接入 (Openlist, 123-API, 115open) 及批量生成 STRM。
+- **文档**：
+    - [功能特性](docs/superstrm/features.md)
+    - [Docker 部署指南](docs/superstrm/deployment.md)
+
+### 2. [SmartReverser](docs/smartreverser/features.md)
+媒体服务器流量优化与直链播放工具。
+- **功能**：实现 Strm 文件的 302 直链播放，流量不经过媒体服务器 (Emby/Jellyfin)。
+- **特点**：
+    - 推荐配合 [AutoFilm](https://github.com/Akimio521/AutoFilm) 使用。
+    - 支持 HTTPStrm (直接 HTTP 链接) 及 AlistStrm (Alist 路径)。
+    - 支持屏蔽特定客户端访问。
+- **文档**：
+    - [功能特性](docs/smartreverser/features.md)
+    - [Docker 部署指南](docs/smartreverser/deployment.md)
 
 ## 📦 镜像版本说明
 
-SuperSTRM 提供以下三种类型的 Docker 镜像标签 (Tag)，请根据您的需求选择：
+SmartMedia 的各个组件共享相同的版本发布策略，但可能独立发版。
 
 | 标签 (Tag) | 说明 | 适用场景 |
 | :--- | :--- | :--- |
@@ -26,44 +40,13 @@ SuperSTRM 提供以下三种类型的 Docker 镜像标签 (Tag)，请根据您�
 
 > **注意**: 生产环境建议固定使用具体的版本号 Tag (如 `v1.0.0`) 以避免非预期的自动升级。
 
-## 🚀 快速开始 (Docker)
+## � 发布信息
 
-确保已安装 Docker，运行以下命令即可快速启动：
+SmartMedia 采用按需发布模式，发布版本可能仅包含其中一个或全部应用的更新。
 
-```bash
-docker run -d \
-  --name superstrm \
-  --restart unless-stopped \
-  -p 8080:8080 \
-  -v $(pwd)/superstrm/data:/data \
-  -v $(pwd)/superstrm/logs:/logs \
-  -e LOG_LEVEL=info \
-  smarteam/superstrm:latest
-```
+- **[更新日志 (Changelog)](docs/changelog.md)**：查看版本更新历史及发布计划。
 
-更多配置选项（环境变量、Compose 部署、数据库迁移等）请查阅 [部署指南](docs/deployment.md)。
+## 🤝 交流与反馈
 
-## 🔧 正在开发 (In Development)
-
-> 当前版本正在开发中的特性：
-
-- [x] Openlist 数据源接入
-- [x] 123API 数据源接入
-- [x] 支持数据源内容浏览
-- [x] 定时自动生成/更新 STRM 文件
-- [x] 可视化配置管理界面
-- [X] 版本发布列表
-
-查看完整功能列表请访问 **[功能特性 (Features)](docs/features.md)**。
-
-## 📢 最近发布信息
-
-### v1.0.0 (Planned)
-
-- **预计发布时间**: 2025-12-31
-- **版本类型**: Initial Release
-- **主要内容**:
-    - 核心功能上线：支持 Openlist、123API 等多种数据源接入
-    - 自动化能力：支持批量生成 STRM 及定时任务调度
-    - 部署支持：提供标准 Docker 镜像及 Compose 编排文件
-    - 用户体验：提供 Web 可视化管理界面
+- Bug 反馈：直接提交 Issue
+- 讨论组：[SmartMedia TG Group](https://t.me/superstrm)

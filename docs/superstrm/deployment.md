@@ -36,33 +36,20 @@ services:
     image: smarteam/superstrm:latest
     container_name: superstrm
     restart: unless-stopped
-    ports:
-      - "8080:8080"
     volumes:
-      - ./data:/data
-      - ./logs:/logs
+      - ./data:/data #数据目录
+      - ./logs:/logs # 挂载日志目录，可选
+      - /share/CACHEDEV1_DATA/datas/strm-media:/strm # 挂载 STRM 生成目录
     environment:
-      - LOG_LEVEL=info
+      - LOG_LEVEL=debug
       - TZ=Asia/Shanghai
       - PUID=1000
       - PGID=1000
       - UMASK=022
-      # 如果需要连接 Redis，取消注释以下行
-      # - CACHE_TYPE=redis
-      # - REDIS_ADDR=redis:6379
-    # 默认命令启动 web 服务，如果需要自动迁移，请参考下一节
+      - SERVER_PORT=8080 # 管理端口，可选
+    ports:
+      - "8166:8080"
     command: ["/superstrm-web", "serve", "--migrate"]
-
-  # (可选) Redis 服务
-  # redis:
-  #   image: redis:7-alpine
-  #   container_name: smart-redis
-  #   restart: unless-stopped
-  #   volumes:
-  #     - redis-data:/data
-
-# volumes:
-#   redis-data:
 ```
 
 启动服务：
